@@ -1,0 +1,73 @@
+<app-auth-layout captionTitle="Rejoignez la communauté HOMEY" captionText="Locataire ou propriétaire, créez votre compte en une minute.">
+  <span class="brand-pill">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff" aria-hidden="true"><path d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3L12 3z"/></svg>
+    HOMEY
+  </span>
+
+  <h1 class="auth-title">Créer<br />un compte</h1>
+  <p class="auth-subtitle">Choisissez votre profil pour commencer</p>
+
+  @if (error()) { <p class="alert alert-error">{{ error() }}</p> }
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="role-switch">
+      <label [class.active]="form.value.role === 'TENANT'">
+        <input type="radio" formControlName="role" value="TENANT" /> Locataire
+      </label>
+      <label [class.active]="form.value.role === 'OWNER'">
+        <input type="radio" formControlName="role" value="OWNER" /> Propriétaire
+      </label>
+    </div>
+
+    <div class="field-grid">
+      <div class="field">
+        <label for="first_name">Prénom</label>
+        <input id="first_name" formControlName="first_name" placeholder="Votre prénom" autocomplete="given-name" />
+        @if (invalid('first_name')) { <small class="field-error">Requis.</small> }
+      </div>
+      <div class="field">
+        <label for="last_name">Nom</label>
+        <input id="last_name" formControlName="last_name" placeholder="Votre nom" autocomplete="family-name" />
+        @if (invalid('last_name')) { <small class="field-error">Requis.</small> }
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="email">Votre e-mail</label>
+      <input id="email" type="email" formControlName="email" placeholder="Saisissez votre adresse e-mail" autocomplete="email" />
+      @if (invalid('email')) {
+        <small class="field-error">{{ form.controls.email.errors?.['server'] ?? 'Une adresse e-mail valide est requise.' }}</small>
+      }
+    </div>
+
+    <div class="field">
+      <label for="password">Mot de passe</label>
+      <div class="input-wrap">
+        <input id="password" [type]="showPassword() ? 'text' : 'password'" formControlName="password" placeholder="8 caractères minimum" autocomplete="new-password" />
+        <button type="button" class="eye" (click)="showPassword.set(!showPassword())" aria-label="Afficher ou masquer le mot de passe">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" /><circle cx="12" cy="12" r="3" />
+            @if (showPassword()) { <path d="M3 3l18 18" /> }
+          </svg>
+        </button>
+      </div>
+      @if (invalid('password')) {
+        <small class="field-error">{{ form.controls.password.errors?.['server'] ?? '8 caractères minimum.' }}</small>
+      }
+    </div>
+
+    <div class="field">
+      <label for="password_confirm">Confirmer le mot de passe</label>
+      <input id="password_confirm" [type]="showPassword() ? 'text' : 'password'" formControlName="password_confirm" placeholder="Répétez le mot de passe" autocomplete="new-password" />
+      @if (form.controls.password_confirm.touched && form.hasError('mismatch')) {
+        <small class="field-error">Les mots de passe ne correspondent pas.</small>
+      }
+    </div>
+
+    <button class="btn-primary" type="submit" [disabled]="loading()">
+      {{ loading() ? 'Création…' : 'Créer mon compte' }}
+    </button>
+  </form>
+
+  <p class="auth-footer">Déjà inscrit ? <a routerLink="/login" class="link-accent">Se connecter</a></p>
+</app-auth-layout>

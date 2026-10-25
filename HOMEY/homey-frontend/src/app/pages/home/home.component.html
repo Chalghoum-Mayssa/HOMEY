@@ -1,0 +1,115 @@
+<div class="app-layout">
+  
+  <!-- ============ TOP NAVBAR ============ -->
+  <nav class="top-navbar">
+    <div class="nav-left">
+      <!-- Bouton Sandwich -->
+      <button class="burger-menu" (click)="toggleMenu()" aria-label="Ouvrir le menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      
+      <a routerLink="/home" class="brand">
+        <span class="logo-icon">H</span>
+        <span class="logo-text">HOMEY</span>
+      </a>
+    </div>
+
+    <div class="search-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" placeholder="Rechercher une ville, un quartier..." />
+    </div>
+
+    @if (auth.user(); as user) {
+      <a routerLink="/profile" class="user-profile" title="Voir mon profil">
+        <div class="user-info">
+          <span class="greeting">Bonjour, {{ user.first_name }}</span>
+          <span class="role-badge">{{ roleLabels[user.role] }}</span>
+        </div>
+        @if (avatarSrc(); as src) {
+          <img class="avatar-img" [src]="src" alt="Photo de profil" />
+        } @else {
+          <div class="avatar">{{ initials() }}</div>
+        }
+      </a>
+    }
+  </nav>
+
+  <!-- ============ CONTENU PRINCIPAL ============ -->
+  <main class="main-content">
+    <!-- ... Hero Section et Cartes (inchangé) ... -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1>Trouvez le logement<br>qui vous ressemble</h1>
+        <p>Des milliers d'annonces vérifiées pour votre prochaine colocation ou location.</p>
+        
+        <div class="floating-search">
+          <div class="search-field">
+            <label>Localisation</label>
+            <input type="text" placeholder="Où allez-vous ?" />
+          </div>
+          <div class="search-field">
+            <label>Type</label>
+            <select>
+              <option>Tous les types</option>
+              <option>Appartement</option>
+              <option>Maison</option>
+              <option>Colocation</option>
+            </select>
+          </div>
+          <div class="search-field">
+            <label>Budget Max</label>
+            <input type="text" placeholder="TND" />
+          </div>
+          <button class="btn-search">Rechercher</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured-section">
+      <!-- ... vos cartes ... -->
+    </section>
+  </main>
+
+  <!-- ============ SIDEBAR OVERLAY (Menu Sandwich) ============ -->
+  <!-- Le menu est placé ici, à la fin du DOM, pour être au-dessus de tout -->
+  <aside class="sidebar-overlay" [class.open]="isMenuOpen()">
+    
+    <!-- Le fond sombre (clique dessus pour fermer) -->
+    <div class="sidebar-backdrop" (click)="toggleMenu()"></div>
+    
+    <!-- Le contenu glissant -->
+    <div class="sidebar-content">
+      <div class="sidebar-header">
+        <span class="logo-text">Menu</span>
+        <button class="close-btn" (click)="toggleMenu()">&times;</button>
+      </div>
+
+      <nav class="main-nav">
+        <a routerLink="/home" class="nav-item active" (click)="toggleMenu()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          Accueil
+        </a>
+        <a routerLink="/profile" class="nav-item" (click)="toggleMenu()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          Mon Profil
+        </a>
+        <a href="#" class="nav-item disabled">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Messages
+        </a>
+        <a href="#" class="nav-item disabled">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+          Mes annonces
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button type="button" class="btn-logout" (click)="auth.logout()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          Déconnexion
+        </button>
+      </div>
+    </div>
+  </aside>
+
+</div>

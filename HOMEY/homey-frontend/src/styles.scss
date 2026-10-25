@@ -1,0 +1,174 @@
+/* =====================================================================
+   Styles globaux HOMEY — thème « verre dépoli » des pages d'authentification
+   ===================================================================== */
+:root {
+  --ink: #1a1a1a;
+  --accent: #3a56c4;
+  --danger: #b3261e;
+  --radius: 8px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Lora', Georgia, serif;
+  color: var(--ink);
+  background: #eef0f2;
+}
+
+/* ---------- Marque : pastille noire avec icône + nom en italique ---------- */
+.brand-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 99px;
+  background: #111;
+  color: #fff;
+  font: italic 500 17px 'Playfair Display', serif;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- Titres ---------- */
+.auth-title {
+  margin: 22px 0 8px;
+  text-align: center;
+  font: 500 32px/1.15 'Playfair Display', serif;
+}
+.auth-subtitle {
+  margin: 0 0 22px;
+  text-align: center;
+  font-size: 14px;
+  color: rgba(26, 26, 26, 0.55);
+}
+.auth-card .brand-pill { display: flex; width: fit-content; margin: 0 auto; }
+
+/* ---------- Champs ---------- */
+.field { margin-bottom: 16px; text-align: left; }
+.field label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 500; }
+.field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+input:not([type='checkbox']):not([type='radio']):not([type='file']) {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  background: transparent;
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+  outline: none;
+  transition: box-shadow 0.15s, border-color 0.15s;
+
+  &::placeholder { color: rgba(26, 26, 26, 0.45); }
+  &:focus { box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.15); }
+  &.ng-invalid.ng-touched { border-color: var(--danger); }
+}
+.input-wrap { position: relative; }
+.input-wrap input { padding-right: 44px; }
+.eye {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  display: grid; place-items: center; width: 32px; height: 32px;
+  background: none; border: 0; cursor: pointer; color: var(--ink);
+}
+.field-error { display: block; margin-top: 4px; font-size: 12px; color: var(--danger); }
+
+/* ---------- Ligne « se souvenir / mot de passe oublié » ---------- */
+.row-between { display: flex; align-items: center; justify-content: space-between; margin: 4px 0 18px; font-size: 13px; }
+.checkbox { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+.checkbox input { width: 16px; height: 16px; accent-color: #111; }
+.link-dark { color: var(--ink); text-decoration: none; &:hover { text-decoration: underline; } }
+.link-accent { color: var(--accent); font-weight: 600; text-decoration: none; &:hover { text-decoration: underline; } }
+
+/* ---------- Boutons ---------- */
+.btn-primary {
+  width: 100%; height: 46px;
+  font: 600 15px 'Lora', serif; color: #fff;
+  background: #1c1c1c; border: 0; border-radius: var(--radius);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  cursor: pointer; transition: transform 0.1s, background 0.15s;
+
+  &:hover:not(:disabled) { background: #000; }
+  &:active:not(:disabled) { transform: translateY(1px); }
+  &:disabled { opacity: 0.6; cursor: not-allowed; }
+}
+.divider { margin: 24px 0 18px; border: 0; border-top: 1px solid rgba(26, 26, 26, 0.35); }
+.social-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 28px; }
+.btn-social {
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 4px;
+  font: 500 13px 'Lora', serif; color: var(--ink);
+  background: none; border: 0; cursor: pointer;
+  &:hover { text-decoration: underline; }
+}
+.auth-footer { margin: 22px 0 0; text-align: center; font-size: 14px; }
+
+/* ---------- Choix du rôle (inscription) ---------- */
+.role-switch {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 18px;
+  padding: 4px; border-radius: 12px; background: rgba(255, 255, 255, 0.35);
+
+  label {
+    padding: 10px; text-align: center; font-size: 14px; font-weight: 500;
+    border-radius: 9px; cursor: pointer; transition: all 0.15s;
+    &.active { background: #1c1c1c; color: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); }
+  }
+  input { position: absolute; opacity: 0; pointer-events: none; }
+}
+
+/* ---------- Messages ---------- */
+.alert { margin: 0 0 16px; padding: 10px 14px; font-size: 13px; border-radius: var(--radius); }
+.alert-error { color: #7a1511; background: rgba(255, 220, 218, 0.85); border: 1px solid rgba(179, 38, 30, 0.4); }
+.alert-info  { color: #14391f; background: rgba(214, 245, 224, 0.85); border: 1px solid rgba(40, 140, 80, 0.4); }
+
+/* ---------- Pages privées (accueil, profil, admin) ---------- */
+.app-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px clamp(16px, 5vw, 64px); background: #fff; border-bottom: 1px solid #e2e5e9;
+  nav { display: flex; align-items: center; gap: 20px; font-size: 14px; }
+  nav a { color: var(--ink); text-decoration: none; &:hover { text-decoration: underline; } }
+  nav button { padding: 8px 14px; font: inherit; color: #fff; background: #1c1c1c; border: 0; border-radius: var(--radius); cursor: pointer; }
+}
+.page { max-width: 720px; margin: 32px auto; padding: 0 16px; display: grid; gap: 24px; }
+.panel { padding: 28px 32px; background: #fff; border-radius: 20px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06); }
+.panel input[type='file'] { font-size: 13px; }
+
+
+/* =====================================================================
+   AGRANDISSEMENT de la carte d'authentification (champs, textes, boutons)
+   ===================================================================== */
+.auth-card {
+  .brand-pill { padding: 10px 22px; font-size: 21px; }
+  .auth-title { margin: 28px 0 10px; font-size: clamp(38px, 3.3vw, 54px); }
+  .auth-subtitle { margin-bottom: 32px; font-size: 18px; }
+
+  .field { margin-bottom: 22px; }
+  .field label { margin-bottom: 8px; font-size: 16px; }
+  .field-grid { gap: 16px; }
+  .field-error { margin-top: 6px; font-size: 14px; }
+
+  input:not([type='checkbox']):not([type='radio']):not([type='file']) {
+    height: 56px;
+    padding: 0 18px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+  .input-wrap input:not([type='checkbox']):not([type='radio']):not([type='file']) { padding-right: 60px; }
+  .eye { right: 10px; width: 42px; height: 42px; }
+  .eye svg { width: 22px; height: 22px; }
+
+  .row-between { margin: 8px 0 26px; font-size: 15px; }
+  .checkbox input { width: 18px; height: 18px; }
+
+  .btn-primary { height: 58px; font-size: 18px; border-radius: 12px; }
+  .divider { margin: 32px 0 24px; }
+  .social-row { gap: 14px 36px; }
+  .btn-social { font-size: 16px; gap: 10px; }
+  .btn-social svg { width: 22px; height: 22px; }
+  .auth-footer { margin-top: 26px; font-size: 17px; }
+
+  .role-switch { margin-bottom: 24px; border-radius: 16px; }
+  .role-switch label { padding: 14px; font-size: 16px; border-radius: 12px; }
+  .alert { margin-bottom: 20px; padding: 12px 16px; font-size: 15px; border-radius: 12px; }
+}

@@ -1,0 +1,12 @@
+<header class="app-bar">
+  <span class="brand-pill">HOMEY · Admin</span>
+  <nav><button type="button" (click)="auth.logout()">Se déconnecter</button></nav>
+</header>
+
+<main class="page">
+  <section class="panel">
+    <h1 class="auth-title" style="text-align:left">Tableau de bord</h1>
+    <p class="auth-subtitle" style="text-align:left">Accès administrateur confirmé : {{ auth.user()?.email }}</p>
+    <p>Gestion des utilisateurs, validation des annonces et statistiques : Sprint 3.</p>
+  </section>
+</main>

@@ -1,0 +1,42 @@
+:host {
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  background-color: #eef1ec; /* Fond vert sauge */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* On redéfinit les variables globales pour ce composant */
+:host ::ng-deep {
+  .auth-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 48px;
+    box-shadow: 0 20px 60px rgba(30, 40, 30, 0.08);
+    
+    .brand-pill {
+      background: #2e3a2f; /* Vert forêt */
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .auth-title {
+      font-family: 'Playfair Display', serif;
+      color: #1a1d1a;
+    }
+    
+    .btn-primary {
+      background: #2e3a2f;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      &:hover { background: #1f2820; }
+    }
+    
+    input {
+      border-color: #dde2dd;
+      background: #f4f6f4;
+      &:focus { border-color: #2e3a2f; box-shadow: 0 0 0 3px rgba(46, 58, 47, 0.1); }
+    }
+  }
+}
